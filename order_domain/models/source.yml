@@ -1,0 +1,35 @@
+sources:
+  - name: raw_data
+    database: "lakehouse_db"
+    schema: "{%- if  target.name == 'dev' -%} nse_bgd_dev_lakehouse_db {%- else -%} nse_bgd_prd_lakehouse_db {%- endif -%}"
+    tables:
+      - name: "nextgen_order"
+        identifier: "order"
+        freshness:
+          warn_after: {count: 6, period: hour}
+          error_after: {count: 12, period: hour}
+        loaded_at_field: "CAST(flow_published_at AS TIMESTAMP)"
+
+        description: "Order  events"
+        columns:
+          - name: "\"_meta/sequence_number\""
+            type: string
+            description: "kds_uuid"
+            tests:
+              - unique
+              - not_null
+          - name: "ts"
+            type: timestamp
+            description: "timestamp"
+            tests:
+              - not_null    
+  - name: order_silver
+    database: "{%- if  target.name == 'dev' -%} lakehouse-arctic-dev {%- else -%} lakehouse-arctic-prd {%- endif -%}"
+    schema: "nextgen.order.silver"
+    tables:
+      - name: "order_cntl_tbl"
+  - name: order_log
+    database: "{%- if  target.name == 'dev' -%} lakehouse-arctic-dev {%- else -%} lakehouse-arctic-prd {%- endif -%}"
+    schema: "nextgen.order.gold"
+    tables:
+      - name: "audit_log_order"
