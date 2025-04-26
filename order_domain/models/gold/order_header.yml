@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: order_header_master
+    description: "order hhigh level info"
+    columns:
+      - name: latest_timestamp
+        type: timestamp
+        description: "Timestamp of the latest update for the payment entry."
+        tests:
+          - not_null
+		  
