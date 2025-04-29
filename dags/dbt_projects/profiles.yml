@@ -1,0 +1,23 @@
+data_project:
+  outputs:
+    dev:
+      account: WEDLZGT-GIB40287
+      database: MY_DBT
+      password: 
+      role: ACCOUNTADMIN
+      schema: MY_SCHEMA
+      threads: 2
+      type: snowflake
+      user: dataworld1
+      warehouse: COMPUTE_WH
+    prod:
+      account: WEDLZGT-GIB40287
+      database: MY_DBT
+      password: 
+      role: ACCOUNTADMIN
+      schema: MY_SCHEMA
+      threads: 2
+      type: snowflake
+      user: dataworld1
+      warehouse: COMPUTE_WH
+  target: dev
