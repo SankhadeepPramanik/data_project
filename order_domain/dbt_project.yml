@@ -47,3 +47,12 @@ models:
       +materialized: view
       +tags: 
         - gold
+
+
+
+vars:
+    dag_id: 'Null'
+    dag_run_id: 'Null'
+
+on-run-end: 
+  - "{{ log_dbt_results(results,dag_id,dag_run_id) }}"
