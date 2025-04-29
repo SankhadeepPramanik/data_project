@@ -1,10 +1,10 @@
 sources:
   - name: raw_data
-    database: "lakehouse_db"
-    schema: "{%- if  target.name == 'dev' -%} nse_bgd_dev_lakehouse_db {%- else -%} nse_bgd_prd_lakehouse_db {%- endif -%}"
+    database: "DBT_SOURCE" 
+    schema: "{%- if  target.name == 'dev' -%} SOURCE_SCHEMA {%- else -%} PROD_SOURCE_SCHEMA {%- endif -%}"
     tables:
       - name: "nextgen_order"
-        identifier: "order"
+        identifier: "ORDER_SORCE"
         freshness:
           warn_after: {count: 6, period: hour}
           error_after: {count: 12, period: hour}
@@ -18,7 +18,7 @@ sources:
             tests:
               - unique
               - not_null
-          - name: "ts"
+          - name: "flow_published_at"
             type: timestamp
             description: "timestamp"
             tests:
