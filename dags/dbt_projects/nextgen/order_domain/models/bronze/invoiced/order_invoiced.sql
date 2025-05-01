@@ -1,7 +1,7 @@
 select
     sequence_number,
-    flow_published_at,
-    id,
+    flow_published_at as order_updated_timestamp,
+    id as order_id,
     invoice_id,
     ts,
     coalesce(status, 'invoiced'::varchar) as status,

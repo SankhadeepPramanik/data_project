@@ -43,19 +43,19 @@ ocm.math_taxable,
 ocm.math_total_price,
 ocm.math_total_price_with_shipping
 from 
-{{ref('order_created')}} oc
+{{ref('order_submitted_for_fullfillment')}} oc
 left join
-{{ref('order_created_order_info')}} ocoi
+{{ref('order_submitted_for_fullfillment_order_info')}} ocoi
 on oc.sequence_number = ocoi.sequence_number
 left join
-{{ref('created_flag_flattening')}} ocf
+{{ref('submitted_for_fillfillments_flag_flattening')}} ocf
 on oc.sequence_number = ocf.sequence_number
 left join
-{{ref('created_parties_flattening')}} ocp
+{{ref('submitted_for_fillfillments_parties_flattening')}} ocp
 on oc.sequence_number = ocp.sequence_number
 left join
-{{ref('order_created_math')}} ocm
+{{ref('order_submitted_for_fullfillment_math')}} ocm
 on oc.sequence_number = ocm.sequence_number
 left join
-{{ref('created_contacts_flattening')}} occ
+{{ref('submitted_for_fullfillments_contacts_flattening')}} occ
 on oc.sequence_number = occ.sequence_number

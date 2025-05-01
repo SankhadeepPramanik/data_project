@@ -2,7 +2,7 @@ SELECT
 sequence_number AS sequence_number
   ,partition_key AS meta_partition_key
  , CAST(order_json:"country" AS VARCHAR) AS country
- , current_timestamp() AS flow_published_at
+ , flow_published_at
  , CAST(order_json:"fulfillment"."shipping_address"."address"."address_line1" AS VARCHAR) AS fulfillment_shipping_address_address_address_line1
  , CAST(order_json:"fulfillment"."shipping_address"."address"."address_line2" AS VARCHAR) AS fulfillment_shipping_address_address_address_line2
  , CAST(order_json:"fulfillment"."shipping_address"."address"."city" AS VARCHAR) AS fulfillment_shipping_address_address_city

@@ -21,7 +21,7 @@
             {{ timestamp_column }} as valid_from,
             case
                 when rnk = 1 then NULL
-                else next_valid_from - INTERVAL '1' SECOND
+                else next_valid_from - INTERVAL '1 SECOND'
             end as valid_to
         from ranked
     ),

@@ -7,7 +7,7 @@ oc.country as country,
 oc.sequence_number as sequence_number,
 coalesce(ocf.guest_flag ,cast('false' as boolean)) as guest_flag,
 coalesce(ocf.dropship_flag,cast('false' as boolean))  as dropship_flag,
-occ.mobilephone as mobilephone,
+occ.homephone as homephone,
 occ.email as email,
 ocp.buyeraccount as buyeraccount,
 ocp.sponsoraccount as sponsoraccount,
@@ -43,19 +43,19 @@ ocm.math_taxable,
 ocm.math_total_price,
 ocm.math_total_price_with_shipping
 from 
-{{ref('order_created')}} oc
+{{ref('order_receivedbyfullfillment')}} oc
 left join
-{{ref('order_created_order_info')}} ocoi
+{{ref('receivedbyfullfillment_order_info')}} ocoi
 on oc.sequence_number = ocoi.sequence_number
 left join
-{{ref('created_flag_flattening')}} ocf
+{{ref('receivedbyfullfillment_flag_flattening')}} ocf
 on oc.sequence_number = ocf.sequence_number
 left join
-{{ref('created_parties_flattening')}} ocp
+{{ref('receivedbyfullfillment_parties_flattening')}} ocp
 on oc.sequence_number = ocp.sequence_number
 left join
-{{ref('order_created_math')}} ocm
+{{ref('receivedbyfullfillment_math')}} ocm
 on oc.sequence_number = ocm.sequence_number
 left join
-{{ref('created_contacts_flattening')}} occ
+{{ref('receivedbyfullfillment_contacts_flattening')}} occ
 on oc.sequence_number = occ.sequence_number

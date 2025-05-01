@@ -18,6 +18,7 @@ select
     order_info_created_time,
     order_info_order_type,
     order_info_price_date,
+    order_info_subscription_id,
     reason_code,
     reason_message
 

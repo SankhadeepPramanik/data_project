@@ -1,0 +1,11 @@
+with deduplicated_cte as (
+    {{
+        deduplicate(
+            relation=ref('order_cancelled'),
+            partition_by='order_id',
+            order_by='order_updated_timestamp desc, sequence_number desc',
+        )
+    }}
+)
+
+select * from deduplicated_cte
