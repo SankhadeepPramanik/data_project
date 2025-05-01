@@ -4,7 +4,7 @@ select
     id,
     pay.value:id :: varchar as payments_id,
     pay.value:type:: varchar as payments_type,
-    pay.value:"value":: varchar as payments_vaue,
+    pay.value:"value":: varchar as payments_value,
     pay_item.value:card_detail:card_type:: varchar payments_card_type,
     pay_item.value:"value":: varchar as payment_items_value,
     pay_item.value:card_detail:card_holder_name:given:: varchar as card_holder_name,
