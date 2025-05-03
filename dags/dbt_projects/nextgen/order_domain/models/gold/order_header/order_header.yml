@@ -2,11 +2,193 @@ version: 2
 
 models:
   - name: order_header_master
-    description: "order hhigh level info"
+    description: "Contains high information about orders, including pricing, buyer, and shipping information."
     columns:
-      - name: latest_timestamp
-        type: timestamp
-        description: "Timestamp of the latest update for the payment entry."
+      - name: order_updated_timestamp
+        description: "Timestamp when the order was last updated."
         tests:
           - not_null
-		  
+
+      - name: id
+        description: "Primary unique identifier for the order record."
+        tests:
+          - not_null
+          - unique
+
+      - name: order_id
+        description: "Unique identifier for the order."
+        tests:
+          - not_null
+
+      - name: return_id
+        description: "Identifier associated with returns, if applicable."
+
+      - name: status
+        description: "Current status of the order."
+        tests:
+          - accepted_values:
+              values: ['Completed', 'Shipped', 'Returned', 'Cancelled','invoiced','ReceivedByFulfillment','ReturnSubmitted']
+              quote: true
+              config:
+                severity: warn
+
+      - name: source
+        description: "System or source from which the order originated."
+
+      - name: country
+        description: "Country related to the order."
+
+      - name: sequence_number
+        description: "Sequence number for the order line or batch."
+
+      - name: invoice_id
+        description: "Invoice identifier linked to the order."
+
+      - name: guest_flag
+        description: "Indicates if the order was placed by a guest user."
+        tests:
+          - accepted_values:
+              values: ['true', 'false']
+              quote: true
+
+      - name: dropship_flag
+        description: "Indicates whether the order is a dropship."
+        tests:
+          - accepted_values:
+              values: ['true', 'false']
+              quote: true
+
+      - name: mobilephone
+        description: "Buyer's mobile phone number."
+
+      - name: email
+        description: "Buyer's email address."
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_match_regex:
+              regex: "^.+@.+\\..+$"
+
+      - name: buyeraccount
+        description: "Account of the buyer placing the order."
+
+      - name: sponsoraccount
+        description: "Sponsor or referrer account associated with the order."
+
+      - name: selleraccount
+        description: "Account of the seller fulfilling the order."
+
+      - name: order_info_account_classification
+        description: "Classification of the buyer's account."
+
+      - name: order_info_country
+        description: "Country of the order information."
+
+      - name: order_info_category
+        description: "Product or order category."
+
+      - name: order_info_channel
+        description: "Sales channel through which the order was placed."
+
+      - name: order_info_created_by
+        description: "User or system that created the order."
+
+      - name: order_info_created_time
+        description: "Timestamp when the order was created."
+        tests:
+          - not_null
+
+      - name: order_info_location_id
+        description: "ID of the location associated with the order."
+
+      - name: order_info_location_name
+        description: "Name of the order location."
+
+      - name: order_info_market
+        description: "Market or region where the order was placed."
+
+      - name: order_info_order_comments
+        description: "Any comments or notes attached to the order."
+
+      - name: order_info_order_date
+        description: "Date the order was placed."
+
+      - name: order_info_order_type
+        description: "Type of order (e.g., regular, subscription)."
+
+      - name: order_info_subscription_id
+        description: "Subscription identifier, if applicable."
+
+      - name: order_info_price_date
+        description: "Pricing date related to the order."
+
+      - name: reason_code
+        description: "Code indicating reason for return or adjustment."
+
+      - name: reason_message
+        description: "Detailed message explaining the reason code."
+
+      - name: math_currency
+        description: "Currency used for pricing and math fields."
+
+      - name: math_discount
+        description: "Discount applied to the order."
+
+      - name: math_base_price
+        description: "Base price before taxes and discounts."
+
+      - name: math_net_price
+        description: "Net price after discounts."
+
+      - name: math_shipping_base
+        description: "Base shipping cost."
+
+      - name: math_shipping_discount
+        description: "Shipping discount applied."
+
+      - name: math_shipping_tax
+        description: "Tax applied to shipping."
+
+      - name: math_shipping_total
+        description: "Total shipping cost including tax and discounts."
+
+      - name: math_tax
+        description: "Tax on the item price."
+
+      - name: math_tax_total
+        description: "Total tax including item and shipping."
+
+      - name: math_taxable
+        description: "Flag indicating if the item is taxable."
+
+      - name: math_total_price
+        description: "Final total price of the order."
+
+      - name: math_total_price_with_shipping
+        description: "Total price including shipping."
+
+      - name: shipping_address_line1
+        description: "Shipping address - line 1."
+
+      - name: shipping_address_line2
+        description: "Shipping address - line 2."
+
+      - name: shipping_address_line3
+        description: "Shipping address - line 3."
+
+      - name: shipping_city
+        description: "Shipping city."
+
+      - name: shipping_district
+        description: "Shipping district or state."
+
+      - name: shipping_postal_code
+        description: "Postal code of the shipping address."
+
+      - name: shipping_country
+        description: "Country of the shipping address."
+
+      - name: shipping_region
+        description: "Region or territory for shipping."
+
+      - name: shipping_family_name
+        description: "Recipient's last name for shipping."

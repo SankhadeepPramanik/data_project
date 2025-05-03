@@ -12,7 +12,7 @@ sources:
 
         description: "Order  events"
         columns:
-          - name: "\"_meta/sequence_number\""
+          - name: "sequence_number"
             type: string
             description: "kds_uuid"
             tests:
@@ -24,12 +24,17 @@ sources:
             tests:
               - not_null    
   - name: order_silver
-    database: "{%- if  target.name == 'dev' -%} lakehouse-arctic-dev {%- else -%} lakehouse-arctic-prd {%- endif -%}"
-    schema: "nextgen.order.silver"
+    database: "{%- if  target.name == 'dev' -%} MY_DBT {%- else -%} PROD_DBT {%- endif -%}"
+    schema: "audit_log"
     tables:
       - name: "order_cntl_tbl"
   - name: order_log
-    database: "{%- if  target.name == 'dev' -%} lakehouse-arctic-dev {%- else -%} lakehouse-arctic-prd {%- endif -%}"
-    schema: "nextgen.order.gold"
+    database: "{%- if  target.name == 'dev' -%} MY_DBT {%- else -%} PROD_DBT {%- endif -%}"
+    schema: "audit_log"
     tables:
       - name: "audit_log_order"
+  - name: nextgen_audit
+    database: "{%- if  target.name == 'dev' -%} MY_DBT {%- else -%} PROD_DBT {%- endif -%}"
+    schema: "audit_log"
+    tables:
+      - name: "dbt_audit_logs"  

@@ -23,7 +23,6 @@ ocoi.order_info_location_name,
 ocoi.order_info_market,
 ocoi.order_info_order_comments,
 ocoi.order_info_order_date,
-ocoi.order_info_created_time,
 ocoi.order_info_order_type,
 ocoi.order_info_subscription_id,
 ocoi.order_info_price_date,
@@ -41,7 +40,16 @@ ocm.math_tax,
 ocm.math_tax_total,
 ocm.math_taxable,
 ocm.math_total_price,
-ocm.math_total_price_with_shipping
+ocm.math_total_price_with_shipping,
+oc.shipping_address_line1,
+oc.shipping_address_line2,    
+oc.shipping_address_line3,
+oc.shipping_city,
+oc.shipping_district,
+oc.shipping_postal_code,
+oc.shipping_country,
+oc.shipping_region,
+oc.shipping_family_name
 from 
 {{ref('order_receivedbyfullfillment')}} oc
 left join
