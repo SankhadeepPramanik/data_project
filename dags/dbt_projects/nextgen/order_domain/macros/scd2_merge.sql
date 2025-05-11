@@ -19,21 +19,17 @@
 
 select {{ get_column_names( source_table) }},
 
-    to_hex(md5(
+    md5(
         coalesce(cast({{scd_columns}} AS VARCHAR), '') || '|' || 
         coalesce(cast(current_timestamp AS VARCHAR), '') || '|' || 
         cast(row_number() OVER (PARTITION BY {{scd_Pkcolumns}} ORDER BY {{timestamp_column}}) AS VARCHAR)
-    )) AS dbt_scd_id,
-
-
-        record_status, valid_from, valid_to
+    ) AS dbt_scd_id
 from {{ref(source_table)}}
 {% if is_incremental %}
 where {{timestamp_column}} > (select max({{ timestamp_column }}) from {{target_table}})
 
 Union all
-select {{ get_column_names(source_table,'target') }}, dbt_scd_id, 'expired' as record_status, valid_from,
-source.{{ timestamp_column }} as valid_to
+select {{ get_column_names(source_table,'target') }}, dbt_scd_id
 from  {{target_table}}  target
 join (select {{pk_columns}},min({{ timestamp_column }}) as {{ timestamp_column }}  from {{ref(source_table)}}
 {% if is_incremental %}

@@ -37,7 +37,8 @@
             'status': run_result_dict.get('status'),
             'rows_affected': rows_affected,
             'execution_time': run_result_dict.get('execution_time'),
-            'message': cleaned_message
+            'message': cleaned_message,
+            'run_user': target.user | default('unknown')
         } %}
         {% do parsed_results.append(parsed_result_dict) %}
     {% endfor %}

@@ -49,6 +49,11 @@ models:
       +tags: 
         - gold
 
+seeds:
+  order_domain:
+    legacy_csv:
+      delimiter: ","
+      quote_columns: false
 
 
 vars:

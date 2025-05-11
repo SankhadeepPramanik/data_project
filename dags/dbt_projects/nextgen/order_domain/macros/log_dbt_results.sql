@@ -18,7 +18,8 @@ insert into {{ source('nextgen_audit', 'dbt_audit_logs') }} (
     rows_affected,
     dag_id,
     dag_run_id,
-    message
+    message,
+    run_user  
 )
 values
 {%- for parsed_result_dict in parsed_results %}
@@ -50,7 +51,8 @@ values
         {{ parsed_result_dict.get('rows_affected') }},
         case when '{{ var("dag_id") }}' = 'Null' then Null else '{{ var("dag_id") }}' end,
         case when '{{ var("dag_run_id") }}' = 'Null' then Null else '{{ var("dag_run_id") }}' end,
-        case when '{{ parsed_result_dict.get('message') }}' = '0' or '{{ parsed_result_dict.get('message') }}' = 'None' or '{{ parsed_result_dict.get('status') }}' = 'success' then null else '{{ parsed_result_dict.get('message') }}' end
+        case when '{{ parsed_result_dict.get('message') }}' = '0' or '{{ parsed_result_dict.get('message') }}' = 'None' or '{{ parsed_result_dict.get('status') }}' = 'success' then null else '{{ parsed_result_dict.get('message') }}' end,
+        '{{ parsed_result_dict.get('run_user', 'unknown') }}'
     ){% if not loop.last %},{% endif %}
 {%- endfor %}
 

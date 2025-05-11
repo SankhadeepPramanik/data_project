@@ -10,7 +10,7 @@
 
 select
 order_updated_timestamp
- , id
+ , id as unique_id
  , order_id
  , return_id
  , status

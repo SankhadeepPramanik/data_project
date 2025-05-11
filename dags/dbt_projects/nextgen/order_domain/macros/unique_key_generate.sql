@@ -1,5 +1,5 @@
 {% macro generate_surrogate_key(columns) %}
-    to_hex(
+    
         md5(
             cast(
                 {% for column in columns %}
@@ -9,5 +9,5 @@
                 as VARCHAR
             )
         )
-    ) 
+     
 {% endmacro %}

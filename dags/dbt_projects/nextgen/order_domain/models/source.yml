@@ -38,3 +38,8 @@ sources:
     schema: "audit_log"
     tables:
       - name: "dbt_audit_logs"  
+  - name: subscription
+    database: "{%- if  target.name == 'dev' -%} MY_DBT {%- else -%} PROD_DBT {%- endif -%}"
+    schema: "MY_SCHEMA"
+    tables:
+      - name: "subscription"
